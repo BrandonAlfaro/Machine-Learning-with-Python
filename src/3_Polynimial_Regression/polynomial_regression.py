@@ -18,38 +18,44 @@ print("Data obtained:", filename)
 df = pd.read_csv("FuelConsumption.csv")
 
 # Display the first 16 rows of the dataset for inspection
+print("\nSample of dataset:")
 print(df.head(16))
 
+# Select relevant features for analysis
 cdf = df[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_COMB', 'CO2EMISSIONS']]
-
+print("\nSample of selected features:")
 print(cdf.head(9))
 
+# Scatter plot: Engine size vs. CO2 emissions
 plt.scatter(cdf.ENGINESIZE, cdf.CO2EMISSIONS,  color='blue')
 plt.xlabel("Engine size")
 plt.ylabel("Emission")
 plt.show()
 
+# Split the data into training and testing sets (80% train, 20% test)
 msk = np.random.rand(len(df)) < 0.8
 train = cdf[msk]
 test = cdf[~msk]
 
+# Selecting the data
 train_x = np.asanyarray(train[['ENGINESIZE']])
 train_y = np.asanyarray(train[['CO2EMISSIONS']])
-
 test_x = np.asanyarray(test[['ENGINESIZE']])
 test_y = np.asanyarray(test[['CO2EMISSIONS']])
 
-
+# Create and train the first polynomial regression model
 poly = PolynomialFeatures(degree=2)
 train_x_poly = poly.fit_transform(train_x)
 train_x_poly
-
 clf = linear_model.LinearRegression()
 train_y_ = clf.fit(train_x_poly, train_y)
-# The coefficients
-print ('Coefficients: ', clf.coef_)
-print ('Intercept: ',clf.intercept_)
 
+# Display the coefficients of the trained model
+print("Polynomial regression with Engine size for CO2 Emissions(Degree 2)")
+print('Coefficients: ', clf.coef_)
+print('Intercept: ',clf.intercept_)
+
+# Scatter plot: Engine size vs. CO2 emissions
 plt.scatter(train.ENGINESIZE, train.CO2EMISSIONS,  color='blue')
 XX = np.arange(0.0, 10.0, 0.1)
 yy = clf.intercept_[0]+ clf.coef_[0][1]*XX+ clf.coef_[0][2]*np.power(XX, 2)
@@ -58,25 +64,26 @@ plt.xlabel("Engine size")
 plt.ylabel("Emission")
 plt.show()
 
-
+# Evaluate the model
 test_x_poly = poly.transform(test_x)
 test_y_ = clf.predict(test_x_poly)
-
 print("Mean absolute error: %.2f" % np.mean(np.absolute(test_y_ - test_y)))
 print("Residual sum of squares (MSE): %.2f" % np.mean((test_y_ - test_y) ** 2))
 print("R2-score: %.2f" % r2_score(test_y,test_y_ ) )
 
 # With degree three (cubic)
-
-# write your code here
+# Create and train the second polynomial regression model
 poly3 = PolynomialFeatures(degree=3)
 train_x_poly3 = poly3.fit_transform(train_x)
 clf3 = linear_model.LinearRegression()
 train_y3_ = clf3.fit(train_x_poly3, train_y)
 
-# The coefficients
+# Display the coefficients of the trained model
+print("Polynomial regression with Engine size for CO2 Emissions(Degree 2)")
 print ('Coefficients: ', clf3.coef_)
 print ('Intercept: ',clf3.intercept_)
+
+# Scatter plot: Engine size vs. CO2 emissions
 plt.scatter(train.ENGINESIZE, train.CO2EMISSIONS,  color='blue')
 XX = np.arange(0.0, 10.0, 0.1)
 yy = clf3.intercept_[0]+ clf3.coef_[0][1]*XX + clf3.coef_[0][2]*np.power(XX, 2) + clf3.coef_[0][3]*np.power(XX, 3)
@@ -85,6 +92,7 @@ plt.xlabel("Engine size")
 plt.ylabel("Emission")
 plt.show()
 
+# Evaluate the model
 test_x_poly3 = poly3.transform(test_x)
 test_y3_ = clf3.predict(test_x_poly3)
 print("Mean absolute error: %.2f" % np.mean(np.absolute(test_y3_ - test_y)))
