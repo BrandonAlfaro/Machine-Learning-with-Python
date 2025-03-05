@@ -40,18 +40,18 @@ filename = "FuelConsumption.csv"
 
 # Download the dataset from the URL
 urllib.request.urlretrieve(url, filename)
-print("Data obtained:", filename)
+print("\nData obtained:", filename)
 
 # Load the dataset into a Pandas DataFrame
 df = pd.read_csv(filename)
 
 # Display the first 9 rows of the dataset for inspection
-print("Sample of dataset:")
+print("\nSample of dataset:")
 print(df.head(9))
 
 # Select relevant features for analysis
 cdf = df[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_CITY', 'FUELCONSUMPTION_HWY', 'FUELCONSUMPTION_COMB', 'CO2EMISSIONS']]
-print("Sample of selected features:")
+print("\nSample of selected features:")
 print(cdf.head(9))
 
 # Scatter plot: Engine size vs. CO2 emissions
@@ -78,6 +78,7 @@ y_train = np.asanyarray(train[['CO2EMISSIONS']])
 regr.fit(x_train, y_train)
 
 # Display the coefficients of the trained model
+print("\nMultiple linear regression with engine size, cylinders and fuel consumption for C02 emissions.")
 print('Coefficients:', regr.coef_)
 
 # Make predictions on the test set
@@ -86,15 +87,15 @@ x_test = np.asanyarray(test[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_COMB']]
 y_test = np.asanyarray(test[['CO2EMISSIONS']])
 
 # Evaluate the model
-print("Multiple linear regression with engine size, cylinders and flue consumption for C02 emissions.")
 print("Mean Squared Error (MSE): %.2f" % np.mean((y_pred - y_test) ** 2))
-print("Variance score (R2): %.2f\n" % r2_score(y_test, y_pred))
+print("Variance score (R2): %.2f" % r2_score(y_test, y_pred))
 
 # Train and evaluate a second regression model using different features
 regr = linear_model.LinearRegression()
 x_train = np.asanyarray(train[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_CITY', 'FUELCONSUMPTION_HWY']])
 y_train = np.asanyarray(train[['CO2EMISSIONS']])
 regr.fit(x_train, y_train)
+print("\nMultiple linear regression with engine size, cylinders, fuel consumption in city and fuel consumption HWY for C02 emissions.")
 print('Coefficients:', regr.coef_)
 
 # Make predictions
@@ -103,7 +104,6 @@ x_test = np.asanyarray(test[['ENGINESIZE', 'CYLINDERS', 'FUELCONSUMPTION_CITY', 
 y_test = np.asanyarray(test[['CO2EMISSIONS']])
 
 # Evaluate the second model
-print("Multiple linear regression with engine size, cylinders, fuel consumption in city and fuel consumption HWY for C02 emissions.")
 print("Residual sum of squares (MSE): %.2f" % np.mean((y_pred - y_test) ** 2))
 print("Variance score (R2): %.2f" % r2_score(y_test, y_pred))
 
