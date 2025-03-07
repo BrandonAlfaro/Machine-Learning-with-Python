@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
 # File: multiple_linear_regression.py
-# Description: Implementation of a multiple linear regression model in Python.
+# Description: Implementation of a basic multiple linear regression model in Python.
 #
 # Author: Brandon Alfaro
 # Date: 3/3/2025
