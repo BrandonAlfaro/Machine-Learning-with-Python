@@ -44,17 +44,18 @@ df['custcat'].value_counts()
 
 # Plot a histogram of the 'income' column with 50 bins
 df.hist(column='income', bins=50)
+plt.show()
 
 # Display column names
 print(df.columns)
 
 # Extract feature columns and convert them into a NumPy array
 X = df[['region', 'tenure','age', 'marital', 'address', 'income', 'ed', 'employ','retire', 'gender', 'reside']].values  
-X[0:5]  # Display the first 5 rows of the feature matrix
+print(X[0:5])  # Display the first 5 rows of the feature matrix
 
 # Extract the target variable and convert it into a NumPy array
 y = df['custcat'].values
-y[0:5]  # Display the first 5 values of the target variable
+print(y[0:5])  # Display the first 5 values of the target variable
 
 # Standardize the features (zero mean and unit variance)
 X = preprocessing.StandardScaler().fit(X).transform(X.astype(float))
