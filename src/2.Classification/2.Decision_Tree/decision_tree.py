@@ -27,17 +27,26 @@
 # THE SOFTWARE.
 # ------------------------------------------------------------------------------
 
-# Surpress warnings:
+# Suppress warnings
 def warn(*args, **kwargs):
     pass
+
 import warnings
-warnings.warn = warn
+warnings.warn = warn  # Overrides the warning function to prevent warnings from being displayed.
 
-import sys
-import numpy as np 
-import pandas as pd
-from sklearn.tree import DecisionTreeClassifier
-import sklearn.tree as tree
+# Import necessary libraries
+import sys  # Not used in this code, could be removed if unnecessary.
+import numpy as np  # Typically used for numerical computations, but not yet used here.
+import pandas as pd  # Used for handling and manipulating data in DataFrames.
+from sklearn.tree import DecisionTreeClassifier  # Imports the decision tree classifier from scikit-learn.
+import sklearn.tree as tree  # Imports the tree module (seems redundant with the previous line).
 
-my_data = pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillsNetwork/labs/Module%203/data/drug200.csv', delimiter=",")
+# Load the dataset from an online CSV file.
+# The delimiter is a comma, which is standard for CSV files.
+my_data = pd.read_csv(
+    'https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillsNetwork/labs/Module%203/data/drug200.csv',
+    delimiter=","
+)
+
+# Display the first 5 rows of the DataFrame to inspect its contents.
 my_data.head()
