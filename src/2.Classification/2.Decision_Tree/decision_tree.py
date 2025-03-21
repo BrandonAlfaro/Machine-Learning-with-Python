@@ -56,7 +56,7 @@ print("\nSize of data (rows, columns).")
 print(my_data.shape) # shape is an attribute.
 
 # Pre-processing.
-# Spliting the dataset into data and target.
+# Splitting the dataset into data and target.
 X = my_data[['Age', 'Sex', 'BP', 'Cholesterol', 'Na_to_K']].values
 y = my_data['Drug']
 # Display variables
@@ -93,3 +93,10 @@ print("Shape of X training set {}".format(X_testset.shape), "shape of y training
 drugTree = DecisionTreeClassifier(criterion="entropy", max_depth = 4)
 print("\nDefault parameters of the Decision Tree model.")
 print(drugTree.get_params()) # Shows the default parameters
+
+drugTree.fit(X_trainset,y_trainset)
+
+predTree = drugTree.predict(X_testset)
+
+print (predTree [0:5])
+print (y_testset [0:5])
