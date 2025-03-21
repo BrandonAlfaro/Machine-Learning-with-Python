@@ -27,21 +27,11 @@
 # THE SOFTWARE.
 # ------------------------------------------------------------------------------
 
-# Suppress warnings
-def warn(*args, **kwargs):
-    pass
-
-import warnings
-warnings.warn = warn  # Overrides the warning function to prevent warnings from being displayed.
-
-# Import necessary libraries
-import sys  # Not used in this code, could be removed if unnecessary.
-import numpy as np  # Typically used for numerical computations, but not yet used here.
-import pandas as pd  # Used for handling and manipulating data in DataFrames.
-from sklearn.tree import DecisionTreeClassifier  # Imports the decision tree classifier from scikit-learn.
-import sklearn.tree as tree  # Imports the tree module (seems redundant with the previous line).
-from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
+import pandas as pd                                     # For working with dataframes.
+from sklearn.tree import DecisionTreeClassifier         # For creating a decision tree model.
+from sklearn import preprocessing                       # For preparing data.
+from sklearn.model_selection import train_test_split    # For splitting data into training and testing sets.
+from sklearn import metrics                             # For evaluating model performance.
 
 # Load the dataset from an online CSV file.
 # The delimiter is a comma, which is standard for CSV files.
@@ -94,9 +84,16 @@ drugTree = DecisionTreeClassifier(criterion="entropy", max_depth = 4)
 print("\nDefault parameters of the Decision Tree model.")
 print(drugTree.get_params()) # Shows the default parameters
 
-drugTree.fit(X_trainset,y_trainset)
+drugTree.fit(X_trainset,y_trainset) # The method learns patterns from the training dataset.
 
-predTree = drugTree.predict(X_testset)
+# Prediction
+predTree = drugTree.predict(X_testset) # The method makes preditions for the test dataset.
 
+# Display the fist 5 preditions and real results.
+print("\nPredictions of model.")
 print (predTree [0:5])
+print("Real values of data.")
 print (y_testset [0:5])
+
+# Evaluation
+print("\nDecisionTrees's Accuracy: ", metrics.accuracy_score(y_testset, predTree))
