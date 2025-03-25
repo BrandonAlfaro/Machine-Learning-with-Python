@@ -97,3 +97,6 @@ print (y_testset [0:5])
 
 # Evaluation
 print("\nDecisionTrees's Accuracy: ", metrics.accuracy_score(y_testset, predTree))
+
+# End of code
+print("\nCode Finished.\n")
