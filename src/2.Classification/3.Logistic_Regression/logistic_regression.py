@@ -32,11 +32,16 @@ import pylab as pl
 import numpy as np
 import scipy.optimize as opt
 from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 
+# Getting dataset
 churn_df = pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillsNetwork/labs/Module%203/data/ChurnData.csv',delimiter=",")
 print(churn_df.head())
 
+# Data selection
 churn_df = churn_df[['tenure', 'age', 'address', 'income', 'ed', 'employ', 'equip',   'callcard', 'wireless','churn']]
 churn_df['churn'] = churn_df['churn'].astype('int')
 print(churn_df.head())
@@ -45,6 +50,30 @@ print(churn_df.shape)
 
 X = np.asarray(churn_df[['tenure', 'age', 'address', 'income', 'ed', 'employ', 'equip']])
 print(X[0:5])
+
+y = np.asarray(churn_df['churn'])
+print(y[0:5])
+
+# Pre-processing data
+X = preprocessing.StandardScaler().fit(X).transform(X)
+print(X[0:5])
+
+# Train and test dataset
+X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
+print ('Train set:', X_train.shape,  y_train.shape)
+print ('Test set:', X_test.shape,  y_test.shape)
+
+# Modeling the logistic regression
+LR = LogisticRegression(C=0.01, solver='liblinear').fit(X_train,y_train)
+print(LR)
+
+# Prediction
+yhat = LR.predict(X_test)
+print(yhat)
+
+# Probability of predictions
+yhat_prob = LR.predict_proba(X_test)
+print(yhat_prob) # [P(Y=0|X), (Y=1|X)]
 
 # Code Finished
 print("\nCode Finished.")
