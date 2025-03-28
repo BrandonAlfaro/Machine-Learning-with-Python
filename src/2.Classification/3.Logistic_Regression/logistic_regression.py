@@ -63,5 +63,17 @@ X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random
 print ('Train set:', X_train.shape,  y_train.shape)
 print ('Test set:', X_test.shape,  y_test.shape)
 
+# Modeling the logistic regression
+LR = LogisticRegression(C=0.01, solver='liblinear').fit(X_train,y_train)
+print(LR)
+
+# Prediction
+yhat = LR.predict(X_test)
+print(yhat)
+
+# Probability of predictions
+yhat_prob = LR.predict_proba(X_test)
+print(yhat_prob) # [P(Y=0|X), (Y=1|X)]
+
 # Code Finished
 print("\nCode Finished.")
