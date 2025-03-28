@@ -45,3 +45,6 @@ print(churn_df.shape)
 
 X = np.asarray(churn_df[['tenure', 'age', 'address', 'income', 'ed', 'employ', 'equip']])
 print(X[0:5])
+
+# Code Finished
+print("\nCode Finished.")
