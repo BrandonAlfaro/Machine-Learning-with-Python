@@ -27,15 +27,15 @@
 # THE SOFTWARE.
 # ------------------------------------------------------------------------------
 
-import pandas as pd
-import pylab as pl
-import numpy as np
-import scipy.optimize as opt
-from sklearn import preprocessing
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
+import pandas as pd                                     # For data manipulation (DataFrames)
+import pylab as pl                                      # MATLAB-like interface for plotting and numerical operations
+import numpy as np                                      # For numerical operations (arrays, math)
+import scipy.optimize as opt                            # For optimization tasks (e.g., equation solving)
+from sklearn import preprocessing                       # For data preprocessing (scaling, encoding)
+from sklearn.model_selection import train_test_split    # For splitting data into train/test sets
+from sklearn.linear_model import LogisticRegression     # For logistic regression modeling
+from sklearn.metrics import confusion_matrix            # For evaluating classification models
+import matplotlib.pyplot as plt                         # For creating visualizations (graphs, charts)
 
 # Getting dataset
 churn_df = pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillsNetwork/labs/Module%203/data/ChurnData.csv',delimiter=",")
