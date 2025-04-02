@@ -38,42 +38,42 @@ from sklearn.metrics import confusion_matrix            # For evaluating classif
 import matplotlib.pyplot as plt                         # For creating visualizations (graphs, charts)
 
 # Getting dataset
-churn_df = pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillsNetwork/labs/Module%203/data/ChurnData.csv',delimiter=",")
-print(churn_df.head())
+churn_df = pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillsNetwork/labs/Module%203/data/ChurnData.csv',delimiter=",")  # Load dataset from URL
+print(churn_df.head())  # Display first 5 rows of the dataframe
 
 # Data selection
-churn_df = churn_df[['tenure', 'age', 'address', 'income', 'ed', 'employ', 'equip',   'callcard', 'wireless','churn']]
-churn_df['churn'] = churn_df['churn'].astype('int')
-print(churn_df.head())
+churn_df = churn_df[['tenure', 'age', 'address', 'income', 'ed', 'employ', 'equip', 'callcard', 'wireless','churn']]  # Select specific columns
+churn_df['churn'] = churn_df['churn'].astype('int')  # Convert 'churn' column to integer type
+print(churn_df.head())  # Display first 5 rows of modified dataframe
 
-print(churn_df.shape)
+print(churn_df.shape)  # Print dimensions of the dataframe (rows, columns)
 
-X = np.asarray(churn_df[['tenure', 'age', 'address', 'income', 'ed', 'employ', 'equip']])
-print(X[0:5])
+X = np.asarray(churn_df[['tenure', 'age', 'address', 'income', 'ed', 'employ', 'equip']])  # Create feature matrix from selected columns
+print(X[0:5])  # Print first 5 rows of feature matrix
 
-y = np.asarray(churn_df['churn'])
-print(y[0:5])
+y = np.asarray(churn_df['churn'])  # Create target vector from 'churn' column
+print(y[0:5])  # Print first 5 values of target vector
 
 # Pre-processing data
-X = preprocessing.StandardScaler().fit(X).transform(X)
-print(X[0:5])
+X = preprocessing.StandardScaler().fit(X).transform(X)  # Standardize features (mean=0, variance=1)
+print(X[0:5])  # Print first 5 rows of standardized features
 
 # Train and test dataset
-X_train, X_test, y_train, y_test = train_test_split( X, y, test_size=0.2, random_state=4)
-print ('Train set:', X_train.shape,  y_train.shape)
-print ('Test set:', X_test.shape,  y_test.shape)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=4)  # Split data into 80% train, 20% test
+print('Train set:', X_train.shape, y_train.shape)  # Print dimensions of training set
+print('Test set:', X_test.shape, y_test.shape)  # Print dimensions of test set
 
 # Modeling the logistic regression
-LR = LogisticRegression(C=0.01, solver='liblinear').fit(X_train,y_train)
-print(LR)
+LR = LogisticRegression(C=0.01, solver='liblinear').fit(X_train,y_train)  # Create and train logistic regression model
+print(LR)  # Print model parameters
 
 # Prediction
-yhat = LR.predict(X_test)
-print(yhat)
+yhat = LR.predict(X_test)  # Make predictions on test set
+print(yhat)  # Print predicted class labels
 
 # Probability of predictions
-yhat_prob = LR.predict_proba(X_test)
-print(yhat_prob) # [P(Y=0|X), (Y=1|X)]
+yhat_prob = LR.predict_proba(X_test)  # Calculate class probabilities for test set
+print(yhat_prob)  # Print probabilities [P(Y=0|X), P(Y=1|X)] for each sample
 
 # Code Finished
-print("\nCode Finished.")
+print("\nCode Finished.")  # Indicate end of script
