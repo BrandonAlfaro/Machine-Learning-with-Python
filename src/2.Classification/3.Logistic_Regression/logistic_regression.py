@@ -36,9 +36,10 @@ from sklearn.model_selection import train_test_split    # For splitting data int
 from sklearn.linear_model import LogisticRegression     # For logistic regression modeling
 from sklearn.metrics import confusion_matrix            # For evaluating classification models
 import matplotlib.pyplot as plt                         # For creating visualizations (graphs, charts)
-from sklearn.metrics import jaccard_score
-from sklearn.metrics import classification_report, confusion_matrix
-import itertools
+from sklearn.metrics import jaccard_score               # Import Jaccard similarity score metric
+from sklearn.metrics import classification_report       # Import classification evaluation tools
+from sklearn.metrics import confusion_matrix            # Import classification evaluation tools
+import itertools                                        # Import itertools for efficient looping utilities
 
 # Getting dataset
 churn_df = pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillsNetwork/labs/Module%203/data/ChurnData.csv',delimiter=",")  # Load dataset from URL
@@ -81,6 +82,22 @@ print(yhat_prob)  # Print probabilities [P(Y=0|X), P(Y=1|X)] for each sample
 # Evaluation
 jaccard_score(y_test, yhat,pos_label=0)
 
+# Plot confusion matrix
+def plot_confusion_matrix(cm, classes,
+                          normalize=False,
+                          title='Confusion matrix',
+                          cmap=plt.cm.Blues):
+    """
+    This function prints and plots the confusion matrix.
+    Normalization can be applied by setting `normalize=True`.
+    """
+    if normalize:
+        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+        print("Normalized confusion matrix")
+    else:
+        print('Confusion matrix, without normalization')
+
+    print(cm)
 
 # Code Finished
 print("\nCode Finished.")  # Indicate end of script
