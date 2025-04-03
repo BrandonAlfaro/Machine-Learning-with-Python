@@ -36,6 +36,9 @@ from sklearn.model_selection import train_test_split    # For splitting data int
 from sklearn.linear_model import LogisticRegression     # For logistic regression modeling
 from sklearn.metrics import confusion_matrix            # For evaluating classification models
 import matplotlib.pyplot as plt                         # For creating visualizations (graphs, charts)
+from sklearn.metrics import jaccard_score
+from sklearn.metrics import classification_report, confusion_matrix
+import itertools
 
 # Getting dataset
 churn_df = pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-ML0101EN-SkillsNetwork/labs/Module%203/data/ChurnData.csv',delimiter=",")  # Load dataset from URL
@@ -74,6 +77,10 @@ print(yhat)  # Print predicted class labels
 # Probability of predictions
 yhat_prob = LR.predict_proba(X_test)  # Calculate class probabilities for test set
 print(yhat_prob)  # Print probabilities [P(Y=0|X), P(Y=1|X)] for each sample
+
+# Evaluation
+jaccard_score(y_test, yhat,pos_label=0)
+
 
 # Code Finished
 print("\nCode Finished.")  # Indicate end of script
