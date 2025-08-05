@@ -1,6 +1,6 @@
 # ------------------------------------------------------------------------------
-# File: k-means.py
-# Description: Implementation of a k-means clustering model in Python.
+# File: hierarchical.py
+# Description: Implementation of a hierarchical clustering model in Python.
 #
 # Author: BrandonAlfaro
 # Date: 27/1/2025
@@ -29,16 +29,16 @@
 
 
 #---       Import necessary libraries       ---#
-import numpy as np 
-import pandas as pd
-from scipy import ndimage 
-from scipy.cluster import hierarchy 
-from scipy.spatial import distance_matrix 
-from matplotlib import pyplot as plt 
-from sklearn import manifold, datasets 
-from sklearn.cluster import AgglomerativeClustering 
-from sklearn.datasets import make_blobs 
-from sklearn.preprocessing import MinMaxScaler
+import numpy as np                                      # For numerical operations and arrays
+import pandas as pd                                     # For data manipulation and analysis
+from scipy import ndimage                               # For image processing and filtering
+from scipy.cluster import hierarchy                     # For hierarchical clustering and dendrograms
+from scipy.spatial import distance_matrix               # To compute pairwise distance matrices
+from matplotlib import pyplot as plt                    # For plotting and visualization
+from sklearn import manifold, datasets                  # For manifold learning and sample datasets
+from sklearn.cluster import AgglomerativeClustering     # For performing agglomerative clustering
+from sklearn.datasets import make_blobs                 # To generate sample data for clustering
+from sklearn.preprocessing import MinMaxScaler          # To normalize features to a specific range
 #---                                        ---#
 
 #---         Generating Random Data         ---#
@@ -51,7 +51,6 @@ plt.show()
 agglom = AgglomerativeClustering(n_clusters = 4, linkage = 'average')
 agglom.fit(X1,y1)
 #---                                        ---#
-
 
 #---   Create a figure with specific size   ---#
 plt.figure(figsize=(6,4))
@@ -80,4 +79,13 @@ plt.scatter(X1[:, 0], X1[:, 1], marker='.')
 plt.show()
 #---                                        ---#
 
+#---      Calculate the distant matrix      ---#
+dist_matrix = distance_matrix(X1,X1) 
+print(dist_matrix)
+#---                                        ---#
 
+#---    Generate and plot the dendrogram    ---#
+Z = hierarchy.linkage(dist_matrix, 'complete')      # complete, single, average, weighted, centroid, median and ward
+dendro = hierarchy.dendrogram(Z)
+plt.show()
+#---                                        ---#
